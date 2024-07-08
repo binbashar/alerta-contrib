@@ -29,7 +29,7 @@ class FalcoWebhook(WebhookBase):
             group='Network',
             value='description',
             text=f"{payload['importance_level']}: long_descriptio",
-            tags='tags',
+            tags=payload['tags'],
             origin='Falco',
             correlate=['UP', 'DOWN'],
             attributes={'checkId': 'check_id'},
