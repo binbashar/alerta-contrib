@@ -10,7 +10,7 @@ class FalcoWebhook(WebhookBase):
     Falco webhook
     """
 
-    def incoming(self, path, query_string, payload):
+    def incoming(self, query_string, payload):
 
         if payload['importance_level'] == 'HIGH':
             severity = 'critical'
@@ -23,7 +23,6 @@ class FalcoWebhook(WebhookBase):
         return Alert(
             resource="tuvieja",
             event=payload['current_state'],
-            correlate=['UP', 'DOWN'],
             environment=current_app.config['DEFAULT_ENVIRONMENT'],
             severity=severity,
             service=['check_type'],
@@ -31,10 +30,9 @@ class FalcoWebhook(WebhookBase):
             value='description',
             text=f"{payload['importance_level']}: long_descriptio",
             tags='tags',
-            attributes={'checkId': 'check_id'},
             origin='Falco',
+            correlate=['UP', 'DOWN'],
+            attributes={'checkId': 'check_id'},
             event_type='availabilityAlert',
             raw_data=payload
             )
-        #return Alert(
-        #)
