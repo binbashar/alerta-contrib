@@ -10,7 +10,7 @@ class FalcoWebhook(WebhookBase):
     Falco webhook
     """
 
-    def incoming(self, path, query_string, payload):
+    def incoming(self, query_string, payload):
 
         if payload['importance_level'] == 'HIGH':
             severity = 'critical'
