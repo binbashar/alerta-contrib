@@ -3,7 +3,7 @@ from flask import current_app
 from alerta.app import alarm_model
 from alerta.models.alert import Alert
 
-from . import WebhookBase
+from alerta.webhooks  import WebhookBase
 
 class FalcoWebhook(WebhookBase):
     """
