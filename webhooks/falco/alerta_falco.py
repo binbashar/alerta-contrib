@@ -22,22 +22,19 @@ class FalcoWebhook(WebhookBase):
 
         return Alert(
             resource="tuvieja",
-            event='current_state',
+            event=payload['current_state'],
+            correlate=['UP', 'DOWN'],
+            environment=current_app.config['DEFAULT_ENVIRONMENT'],
+            severity=severity,
+            service=['check_type'],
+            group='Network',
+            value='description',
+            text=f"{payload['importance_level']}: long_descriptio",
+            tags='tags',
+            attributes={'checkId': 'check_id'},
             origin='Falco',
             event_type='availabilityAlert',
             raw_data=payload
             )
         #return Alert(
-        #    correlate=['UP', 'DOWN'],
-        #    environment=current_app.config['DEFAULT_ENVIRONMENT'],
-        #    severity=severity,
-        #    service=[payload['check_type']],
-        #    group='Network',
-        #    value=payload['description'],
-        #    text=f"{payload['importance_level']}: {payload['long_description']}",
-        #    tags=payload['tags'],
-        #    attributes={'checkId': payload['check_id']},
-        #    origin='Falco',
-        #    event_type='availabilityAlert',
-        #    raw_data=payload
         #)
